@@ -2,7 +2,7 @@ import React from "react";
 import { FaHome, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ handleSearchChange, handleSearchClick, searchTerm }) => {
   return (
     <nav className="bg-blue-gray-800 p-4 text-white flex justify-between items-center">
       <Link to="/homepage" className="text-2xl font-bold flex items-center">
@@ -14,9 +14,11 @@ const Navbar = () => {
         <input
           type="text"
           placeholder="Search"
-          className="p-2 mr-8 border rounded-md w-96 text-black"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="p-2 mr-2 border rounded-md w-96 text-black"
         />
-        <button className="w-10 h-10">
+        <button className="w-10 h-10" onClick={handleSearchClick}>
           <FaSearch className="text-xl mr-4" />
         </button>
       </div>

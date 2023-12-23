@@ -3,35 +3,39 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Typography,
+  CardFooter,
   Button,
 } from "@material-tailwind/react";
-const Cards = () => {
+
+const ProductCard = ({ product }) => {
   return (
-    <Card className="w-96">
+    <Card className="relative w-96 m-4 ">
       <CardHeader shadow={false} floated={false} className="h-96">
-        <img src="" alt="card-image" className="h-full w-full object-cover" />
+        <img
+          src={product.images[0]}
+          alt="card"
+          className="h-full w-full object-cover"
+        />
       </CardHeader>
-      <CardBody>
+      <CardBody className="h-56">
         <div className="mb-2 flex items-center justify-between">
-          <Typography color="blue-gray" className="font-medium">
-            Apple AirPods
+          <Typography color="blue-gray" className=" font-bold w-72 ">
+            {product.title}
           </Typography>
-          <Typography color="blue-gray" className="font-medium">
-            $95.00
+          <Typography color="blue-gray" className="font-medium ">
+            ${product.price}
           </Typography>
         </div>
         <Typography
           variant="small"
           color="gray"
-          className="font-normal opacity-75"
+          className="font-normal opacity-75 "
         >
-          With plenty of talk and listen time, voice-activated Siri access, and
-          an available wireless charging case.
+          {product.description}
         </Typography>
       </CardBody>
-      <CardFooter className="pt-0">
+      <CardFooter className="absolute bottom-0 left-0 right-0 mb-4">
         <Button
           ripple={false}
           fullWidth={true}
@@ -44,4 +48,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default ProductCard;
