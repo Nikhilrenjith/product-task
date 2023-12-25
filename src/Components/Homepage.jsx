@@ -76,7 +76,7 @@ const Homepage = () => {
         setSearchTerm={setSearchTerm}
         onHomepageClick={handleHomepageClick}
       />
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center mt-8">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
