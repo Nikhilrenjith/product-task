@@ -8,8 +8,59 @@ const Homepage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(20);
   const [total, setTotal] = useState(0);
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState(null);
+
+  const fetchProducts = async () => {
+    try {
+      const skip = (currentPage - 1) * limit;
+      let url = `https://dummyjson.com/products?skip=${skip}&limit=${limit}`;
+
+      if (sortBy) {
+        url += `&sort=${sortBy}`;
+      }
+
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data.products && Array.isArray(data.products)) {
+          // Adjust the sorting logic here based on sortBy
+          const sortedProducts =
+            sortBy === "lowToHigh"
+              ? data.products.sort((a, b) => a.price - b.price)
+              : sortBy === "highToLow"
+              ? data.products.sort((a, b) => b.price - a.price)
+              : data.products;
+
+          setProducts(sortedProducts);
+          setLimit(data.limit);
+          setTotal(data.total);
+        } else {
+          console.error("Invalid data format:", data);
+        }
+      } else {
+        console.error("Error fetching products:", response.status);
+      }
+    } catch (error) {
+      console.error("Error during product fetch:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [currentPage, limit, sortBy]);
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected + 1);
+  };
+
+  const handleSort = (order) => {
+    console.log(`Sorting order: ${order}`);
+    setSortBy(order);
+    setCurrentPage(1);
+  };
 
   const searchData = async (data) => {
     try {
@@ -33,49 +84,29 @@ const Homepage = () => {
     setCurrentPage(1); // Reset currentPage to 1 when the homepage logo is clicked
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const skip = (currentPage - 1) * limit;
-
-        const response = await fetch(
-          `https://dummyjson.com/products?skip=${skip}&limit=${limit}`
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-
-          if (data.products && Array.isArray(data.products)) {
-            setProducts(data.products);
-            setLimit(data.limit);
-            setTotal(data.total);
-          } else {
-            console.error("Invalid data format:", data);
-          }
-        } else {
-          console.error("Error fetching products:", response.status);
-        }
-      } catch (error) {
-        console.error("Error during product fetch:", error);
-      }
-    };
-
-    fetchProducts();
-  }, [currentPage, limit]);
-
-  const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected + 1);
-  };
-
   const showPagination = products.length > 0 && !searchTerm;
 
   return (
-    <div className=" bg-blue-gray-400">
+    <div className="bg-blue-gray-400">
       <Navbar
         searchData={searchData}
         setSearchTerm={setSearchTerm}
         onHomepageClick={handleHomepageClick}
       />
+      <div className="flex justify-center mt-4">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded-md mr-4"
+          onClick={() => handleSort("lowToHigh")}
+        >
+          Low to High
+        </button>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          onClick={() => handleSort("highToLow")}
+        >
+          High to Low
+        </button>
+      </div>
       <div className="flex flex-wrap justify-center mt-8">
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />
