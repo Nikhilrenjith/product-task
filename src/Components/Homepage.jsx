@@ -63,8 +63,8 @@ const Homepage = () => {
     setCurrentPage(selected + 1);
   };
 
-  const handleSort = (order) => {
-    setSortBy(order);
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
   };
 
   const handleSearch = (data) => {
@@ -80,19 +80,19 @@ const Homepage = () => {
   return (
     <div className="bg-blue-gray-400">
       <Navbar searchData={handleSearch} />
-      <div className="flex justify-center mt-4">
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md mr-4"
-          onClick={() => handleSort("highToLow")}
+      <div className="flex  items-center justify-end mt-4 pr-8">
+        <label htmlFor="sortDropdown" className="text-black mr-2">
+          Sort By:
+        </label>
+        <select
+          id="sortDropdown"
+          className="px-4 py-2  text-black rounded-md"
+          onChange={handleSortChange}
         >
-          High to Low
-        </button>
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
-          onClick={() => handleSort("lowToHigh")}
-        >
-          Low to High
-        </button>
+          <option value="">Select</option>
+          <option value="highToLow">High to Low</option>
+          <option value="lowToHigh">Low to High</option>
+        </select>
       </div>
       <div className="flex flex-wrap justify-center mt-8">
         {paginatedProducts.map((product, index) => (
