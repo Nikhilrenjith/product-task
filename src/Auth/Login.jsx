@@ -25,7 +25,7 @@ const Login = () => {
         const data = await response.json();
         const id = data.id;
 
-        // Save the token to localStorage
+        // Save token and id to localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", id);
 
@@ -34,10 +34,8 @@ const Login = () => {
         console.log("Login successful");
         console.log(id);
 
-        // Navigate to the Homepage using navigate
         navigate(`/homepage/${id}`);
       } else {
-        // Handle login error
         const errorData = await response.json();
         setErrorMessage(errorData.message || "Login failed");
       }

@@ -8,7 +8,7 @@ const Homepage = () => {
   const [sortedProducts, setSortedProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(20);
-  const [total, setTotal] = useState(0);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState(null);
 
@@ -24,7 +24,6 @@ const Homepage = () => {
             setAllProducts(data.products);
             setSortedProducts(data.products);
             setLimit(20);
-            setTotal(data.total);
           } else {
             console.error("Invalid data format:", data);
           }
@@ -40,7 +39,6 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-    // Perform sorting and filtering when sortBy or searchTerm changes
     let sortedAndFilteredProducts = [...allProducts];
 
     if (searchTerm) {
@@ -56,7 +54,7 @@ const Homepage = () => {
     }
 
     setSortedProducts(sortedAndFilteredProducts);
-    setCurrentPage(1); // Reset page when sort or search term changes
+    setCurrentPage(1); // Reset page
   }, [allProducts, searchTerm, sortBy]);
 
   const handlePageChange = ({ selected }) => {
@@ -80,13 +78,13 @@ const Homepage = () => {
   return (
     <div className="bg-blue-gray-400">
       <Navbar searchData={handleSearch} />
-      <div className="flex  items-center justify-end mt-4 pr-8">
+      <div className="flex items-center justify-end mt-4 pr-8">
         <label htmlFor="sortDropdown" className="text-black mr-2">
           Sort By:
         </label>
         <select
           id="sortDropdown"
-          className="px-4 py-2  text-black rounded-md"
+          className="px-4 py-2 text-black rounded-md"
           onChange={handleSortChange}
         >
           <option value="">Select</option>
@@ -106,8 +104,8 @@ const Homepage = () => {
           marginPagesDisplayed={2}
           onPageChange={handlePageChange}
           activeClassName="bg-black text-white"
-          previousClassName="py-2 px-4 text-black rounded-md mr-3 border border-gray-800"
-          nextClassName="py-2 px-4 text-black rounded-md ml-3 border border-gray-800"
+          previousClassName="py-2 px-4  text-black rounded-md mr-3 border border-gray-800"
+          nextClassName="py-2 px-4  text-black rounded-md ml-3 border border-gray-800"
           containerClassName="flex mt-8 pb-8 items-center justify-center"
           pageClassName="w-10 h-10 flex items-center justify-center border border-gray-600 rounded-xl mr-3 text-sm"
           breakClassName="w-10 h-10 flex items-center justify-center text-gray-700"

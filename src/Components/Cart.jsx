@@ -82,8 +82,8 @@ const Cart = () => {
                     />
                     <div className="text-gray-600 w-3">+</div>
                   </div>
-                  <span className="text-center w-1/5 font-semibold text-sm">{`$${product.price}.00`}</span>
-                  <span className="text-center w-1/5 font-semibold text-sm">{`$${product.total}.00`}</span>
+                  <span className="text-center w-1/5 font-semibold text-sm">{`$ ${product.price}.00`}</span>
+                  <span className="text-center w-1/5 font-semibold text-sm">{`$ ${product.total}.00`}</span>
                 </div>
               ))}
 
@@ -102,7 +102,7 @@ const Cart = () => {
               </h1>
               <div className="flex justify-between mt-10 mb-5">
                 <span className="font-semibold text-sm uppercase">{`Items ${cartData.totalProducts}`}</span>
-                <span className="font-semibold text-sm">{`$${cartData.total}`}</span>
+                <span className="font-semibold text-sm">{`$ ${cartData.total}`}</span>
               </div>
               <div>
                 <label className="font-medium inline-block mb-3 text-sm uppercase">
@@ -142,7 +142,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <p>No cart data available for the user.</p>
+        <p>No cart data available for this user.</p>
       )}
     </div>
   );

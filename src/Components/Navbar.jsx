@@ -31,7 +31,7 @@ const Navbar = ({ searchData, onHomepageClick, cartCount }) => {
     <nav className="bg-blue-gray-800 p-4 text-white flex justify-between items-center relative z-10">
       <Link
         to={`/homepage/${id}`}
-        className="text-3xl font-bold flex items-center mr-4" // Adjusted font size
+        className="text-3xl font-bold flex items-center mr-4"
         onClick={handleLogoClick}
       >
         <FaHome className="mr-2" />
@@ -49,7 +49,7 @@ const Navbar = ({ searchData, onHomepageClick, cartCount }) => {
           />
           <div className="ml-6">
             <button className="w-10 h-10" onClick={() => searchData(data)}>
-              <FaSearch className="text-2xl" /> {/* Adjusted icon size */}
+              <FaSearch className="text-2xl" />
             </button>
           </div>
         </div>
@@ -57,7 +57,7 @@ const Navbar = ({ searchData, onHomepageClick, cartCount }) => {
 
       <div className="flex items-center space-x-4">
         <Link to={`/cart/${id}`} className="text-white relative">
-          <FaShoppingCart className="text-2xl" /> {/* Adjusted icon size */}
+          <FaShoppingCart className="text-2xl" />
           {cartCount > 0 && (
             <div className="bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full absolute -top-2 -right-2 text-xs">
               {cartCount}
