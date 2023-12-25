@@ -23,16 +23,19 @@ const Login = () => {
       if (response.ok) {
         // Successful login
         const data = await response.json();
+        const id = data.id;
 
         // Save the token to localStorage
         localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", id);
 
         setErrorMessage("");
+
         console.log("Login successful");
-        console.log(data.token);
+        console.log(id);
 
         // Navigate to the Homepage using navigate
-        navigate("/homepage");
+        navigate(`/homepage/${id}`);
       } else {
         // Handle login error
         const errorData = await response.json();
